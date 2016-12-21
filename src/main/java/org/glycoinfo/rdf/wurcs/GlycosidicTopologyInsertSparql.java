@@ -3,9 +3,11 @@ package org.glycoinfo.rdf.wurcs;
 import java.util.ArrayList;
 
 import org.apache.commons.lang.StringUtils;
-import org.glycoinfo.rdf.wurcs.wurcs.InsertSparql;
-import org.glycoinfo.rdf.wurcs.wurcs.InsertSparqlBean;
-import org.glycoinfo.rdf.wurcs.wurcs.UriProvider;
+import org.glycoinfo.rdf.InsertSparql;
+import org.glycoinfo.rdf.InsertSparqlBean;
+import org.glycoinfo.rdf.UriProvider;
+import org.glycoinfo.rdf.glycan.GlycoSequenceInsertSparql;
+import org.glycoinfo.rdf.glycan.SaccharideUtil;
 
 import scala.annotation.meta.setter;
 
@@ -24,7 +26,7 @@ import scala.annotation.meta.setter;
  * @author tokunaga
  *
  */
-public class Glycosidic_topologyInsertSparql extends InsertSparqlBean implements Glycosidic_topology, UriProvider {
+public class GlycosidicTopologyInsertSparql extends InsertSparqlBean implements GlycosidicTopology, UriProvider {
 
 	String level_type = "a rocs:Glycosidic_topology";
 	String has_toplogy = "rocs:has_topology";
@@ -33,11 +35,11 @@ public class Glycosidic_topologyInsertSparql extends InsertSparqlBean implements
 	void init() {
 		this.prefix="PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>\n";
 	}
-	public Glycosidic_topologyInsertSparql() {
+	public GlycosidicTopologyInsertSparql() {
 		init();
 	}
 	
-	public Glycosidic_topologyInsertSparql(GlycoSequenceInsertSparql sequence ) {
+	public GlycosidicTopologyInsertSparql(GlycoSequenceInsertSparql sequence ) {
 		init();
 		ArrayList<InsertSparql> list = new ArrayList<InsertSparql>();
 		list.add(sequence);

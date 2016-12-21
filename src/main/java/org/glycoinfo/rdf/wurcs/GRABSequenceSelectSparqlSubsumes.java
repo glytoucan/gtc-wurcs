@@ -2,8 +2,8 @@ package org.glycoinfo.rdf.wurcs;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.glycoinfo.rdf.wurcs.wurcs.SelectSparqlBean;
-import org.glycoinfo.rdf.wurcs.wurcs.SparqlException;
+import org.glycoinfo.rdf.SelectSparqlBean;
+import org.glycoinfo.rdf.SparqlException;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,16 +15,16 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class GRABSequenceSelectSparql_subsumes extends SelectSparqlBean {
+public class GRABSequenceSelectSparqlSubsumes extends SelectSparqlBean {
 	
-	public static final String SaccharideURI = Glycosidic_topology.URI;
+	public static final String SaccharideURI = GlycosidicTopology.URI;
 	public static final String id = "id";
 
-	public GRABSequenceSelectSparql_subsumes(String sparql) {
+	public GRABSequenceSelectSparqlSubsumes(String sparql) {
 		super(sparql);
 	}
 
-	public GRABSequenceSelectSparql_subsumes() {
+	public GRABSequenceSelectSparqlSubsumes() {
 		super();
 		this.prefix = "PREFIX glytoucan: <http://www.glytoucan.org/glyco/owl/glytoucan#>\n"
 				+"PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>\n"
@@ -35,7 +35,7 @@ public class GRABSequenceSelectSparql_subsumes extends SelectSparqlBean {
 	}
 
 	public String getPrimaryId() {
-		return "\"" + getSparqlEntity().getValue(Glycosidic_topology.PrimaryId_1) + "\"";
+		return "\"" + getSparqlEntity().getValue(GlycosidicTopology.PrimaryId_1) + "\"";
 	}
 
 	@Override

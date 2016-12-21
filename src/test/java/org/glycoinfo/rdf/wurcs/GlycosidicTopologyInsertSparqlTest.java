@@ -4,11 +4,16 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.glycoinfo.rdf.wurcs.wurcs.SelectSparqlBean;
-import org.glycoinfo.rdf.wurcs.wurcs.SparqlException;
-import org.glycoinfo.rdf.wurcs.wurcs.dao.SparqlDAO;
-import org.glycoinfo.rdf.wurcs.wurcs.dao.SparqlEntity;
-import org.glycoinfo.rdf.wurcs.wurcs.dao.virt.VirtSesameTransactionConfig;
+import org.glycoinfo.rdf.SelectSparqlBean;
+import org.glycoinfo.rdf.SparqlException;
+import org.glycoinfo.rdf.dao.SparqlDAO;
+import org.glycoinfo.rdf.dao.SparqlEntity;
+import org.glycoinfo.rdf.dao.virt.VirtSesameTransactionConfig;
+import org.glycoinfo.rdf.glycan.GlycoSequence;
+import org.glycoinfo.rdf.wurcs.GRABSequenceSelectSparqlHasTopology;
+import org.glycoinfo.rdf.wurcs.GRABSequenceSelectSparqlTopologyBy;
+import org.glycoinfo.rdf.wurcs.GlycosidicTopology;
+import org.glycoinfo.rdf.wurcs.GlycosidicTopologyInsertSparql;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,25 +36,25 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {Glycosidic_topologyInsertSparqlTest.class, VirtSesameTransactionConfig.class })
+@SpringApplicationConfiguration(classes = {GlycosidicTopologyInsertSparqlTest.class, VirtSesameTransactionConfig.class })
 @Configuration
 @EnableAutoConfiguration
-public class Glycosidic_topologyInsertSparqlTest {
+public class GlycosidicTopologyInsertSparqlTest {
 
 	public static Logger logger = (Logger) LoggerFactory
-			.getLogger(Glycosidic_topologyInsertSparqlTest.class);
+			.getLogger(GlycosidicTopologyInsertSparqlTest.class);
 	
 	@Autowired
 	SparqlDAO sparqlDAO;
 
 	@Bean
-	Glycosidic_topologyInsertSparql getGlycosidic_topologyInsertSparql() {
-		Glycosidic_topologyInsertSparql ins = new Glycosidic_topologyInsertSparql();
+	GlycosidicTopologyInsertSparql getGlycosidic_topologyInsertSparql() {
+		GlycosidicTopologyInsertSparql ins = new GlycosidicTopologyInsertSparql();
 		SparqlEntity sparqlentity = new SparqlEntity();
-		sparqlentity.setValue(Glycosidic_topology.URI, "insertsacharideuri");
+		sparqlentity.setValue(GlycosidicTopology.URI, "insertsacharideuri");
 		sparqlentity.setValue(GlycoSequence.URI, "glycosequenceuri");
-		sparqlentity.setValue(Glycosidic_topology.PrimaryId_1, "G14728XI");
-		sparqlentity.setValue(Glycosidic_topology.PrimaryId_2, "G24678II");
+		sparqlentity.setValue(GlycosidicTopology.PrimaryId_1, "G14728XI");
+		sparqlentity.setValue(GlycosidicTopology.PrimaryId_2, "G24678II");
 		ins.setSparqlEntity(sparqlentity);
 		ins.setGraph("http://rdf.glytoucan.org/topology");
 		return ins;
@@ -57,19 +62,19 @@ public class Glycosidic_topologyInsertSparqlTest {
 
 	//先に空を出させて、インサートして、セレクトもう一回する	
 	@Bean
-	D3SequenceSelectSparql_has_topology getToplogySelectSparql() {
-		D3SequenceSelectSparql_has_topology sis = new D3SequenceSelectSparql_has_topology();
+	GRABSequenceSelectSparqlHasTopology getToplogySelectSparql() {
+		GRABSequenceSelectSparqlHasTopology sis = new GRABSequenceSelectSparqlHasTopology();
 		SparqlEntity sparqlentity = new SparqlEntity();
-		sparqlentity.setValue(Glycosidic_topology.PrimaryId_1, "G14728XI");
+		sparqlentity.setValue(GlycosidicTopology.PrimaryId_1, "G14728XI");
 		sis.setSparqlEntity(sparqlentity);
 		return sis;
 	}
 	
 	@Bean
-	D3SequenceSelectSparql_topology_by getToplogySelectSparql_toplogy_by() {
-		D3SequenceSelectSparql_topology_by sis = new D3SequenceSelectSparql_topology_by();
+	GRABSequenceSelectSparqlTopologyBy getToplogySelectSparql_toplogy_by() {
+		GRABSequenceSelectSparqlTopologyBy sis = new GRABSequenceSelectSparqlTopologyBy();
 		SparqlEntity sparqlentity = new SparqlEntity();
-		sparqlentity.setValue(Glycosidic_topology.PrimaryId_2, "G24678II");
+		sparqlentity.setValue(GlycosidicTopology.PrimaryId_2, "G24678II");
 		sis.setSparqlEntity(sparqlentity);
 		return sis;
 	}
@@ -133,16 +138,16 @@ public class Glycosidic_topologyInsertSparqlTest {
 	@Test
 	 @Transactional
 	public void selectSparql() throws SparqlException {
-		D3SequenceSelectSparql_has_topology sss = getToplogySelectSparql();
+		GRABSequenceSelectSparqlHasTopology sss = getToplogySelectSparql();
 		SparqlEntity se = sss.getSparqlEntity();
-		se.setValue(Glycosidic_topology.PrimaryId_1, "G00031MO");
+		se.setValue(GlycosidicTopology.PrimaryId_1, "G00031MO");
 		
 		sss.setSparqlEntity(se);
 		
 		List<SparqlEntity> list = sparqlDAO.query(sss);
 		if (list.iterator().hasNext()) {
 			se = list.iterator().next();
-			logger.debug(se.getValue(D3SequenceSelectSparql_has_topology.SaccharideURI));
+			logger.debug(se.getValue(GRABSequenceSelectSparqlHasTopology.SaccharideURI));
 		}
 	}
 }
