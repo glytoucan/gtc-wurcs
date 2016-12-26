@@ -56,7 +56,7 @@ public class BaseCompositionInsertSparqlTest {
 		sparqlentity.setValue(GlycosidicTopology.PrimaryId_1, "G14728XI");
 		sparqlentity.setValue(GlycosidicTopology.PrimaryId_2, "G24678II");
 		ins.setSparqlEntity(sparqlentity);
-		ins.setGraph("http://rdf.glytoucan.org/topology"); //ここは？
+		ins.setGraph("http://rdf.glytoucan.org/base_composition"); //ここは？
 		return ins;
 	}
 

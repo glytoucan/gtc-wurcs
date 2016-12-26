@@ -4,16 +4,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.glycoinfo.rdf.SelectSparqlBean;
 import org.glycoinfo.rdf.SparqlException;
 import org.glycoinfo.rdf.dao.SparqlDAO;
 import org.glycoinfo.rdf.dao.SparqlEntity;
 import org.glycoinfo.rdf.dao.virt.VirtSesameTransactionConfig;
 import org.glycoinfo.rdf.glycan.GlycoSequence;
 import org.glycoinfo.rdf.wurcs.GRABSequenceSelectSparqlHasTopology;
-import org.glycoinfo.rdf.wurcs.GRABSequenceSelectSparqlTopologyBy;
 import org.glycoinfo.rdf.wurcs.GlycosidicTopology;
-import org.glycoinfo.rdf.wurcs.GlycosidicTopologyInsertSparql;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,7 +53,7 @@ public class MonosaccharideCompositionInsertSparqlTest {
 		sparqlentity.setValue(GlycosidicTopology.PrimaryId_1, "G14728XI");
 		sparqlentity.setValue(GlycosidicTopology.PrimaryId_2, "G24678II");
 		ins.setSparqlEntity(sparqlentity);
-		ins.setGraph("http://rdf.glytoucan.org/topology"); //ここは？
+		ins.setGraph("http://rdf.glytoucan.org/composition"); 
 		return ins;
 	}
 
