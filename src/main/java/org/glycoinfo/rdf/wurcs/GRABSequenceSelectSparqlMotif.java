@@ -9,13 +9,9 @@ import org.springframework.stereotype.Component;
 
 /**
  * 
- * SelectSparql for retrieving the Wurcs of The filter removes any existing
- * sequences in the getTo() of the GlyConvert.
+ * SelectSparql for Motif
  * 
- * For instance: Retrieving of original glycoct by using
- * org.glycoinfo.conversion.wurcs.GlycoctToWurcsConverter.
- * 
- * @author aoki
+ * @author tokunaga
  *
  */
 
@@ -44,7 +40,7 @@ public class GRABSequenceSelectSparqlMotif extends SelectSparqlBean {
 		super();
 		this.prefix = "PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>\n"
 				+ "PREFIX glytoucan:  <http://www.glytoucan.org/glyco/owl/glytoucan#>"
-				+"PREFIX rogs: <http://http://www.glycoinfo.org/glyco/owl/relation#>";
+				+"PREFIX rocs: <http://http://www.glycoinfo.org/glyco/owl/relation#>";
 		this.select = "DISTINCT ?id\n" + "?has_motif ?motif\n";
 		this.from = "FROM <http://rdf.glytoucan.org/core>\nFROM <http://rdf.glytoucan.org/motif>\nFROM <http://rdf.glytoucan.org/isomer>";
 //		this.from = "FROM <http://rdf.glycoinfo.org/glycan/browser/demo>";

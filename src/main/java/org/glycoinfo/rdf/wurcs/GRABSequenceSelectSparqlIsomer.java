@@ -9,12 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 
- * SelectSparql for retrieving the Wurcs of The filter removes any existing
- * sequences in the getTo() of the GlyConvert.
- * 
- * For instance: Retrieving of original glycoct by using
- * org.glycoinfo.conversion.wurcs.GlycoctToWurcsConverter.
- * 
+ SelectSparql for Linkage Isomer
  * @author aoki
  *
  */
