@@ -22,16 +22,12 @@ import org.springframework.util.Assert;
  * @author tokunaga
  *
  */
-public class CompositionConvertSelectSparql extends SelectSparqlBean implements GlyConvertSparql, InitializingBean {
+public class CompositionConvertSelectSparql extends SelectSparqlBean implements InitializingBean {
   public static final String SaccharideURI = Saccharide.URI;
   public static final String Sequence = "Sequence";
   public static final String GlycanSequenceURI = "GlycanSequenceURI";
   public static final String AccessionNumber = Saccharide.PrimaryId;
   protected Log logger = LogFactory.getLog(getClass());
-
-  @Autowired(required = true)
-  @Qualifier("org.glycoinfo.batch.glyconvert")
-  GlyConvert glyConvert;
 
   String glycanUri;
 
@@ -69,11 +65,10 @@ public class CompositionConvertSelectSparql extends SelectSparqlBean implements 
    * @return
    */
   public String getFilter() {
-    return "FILTER NOT EXISTS {\n" + "?" + Saccharide.URI + " rocs:has_composition ?existingseq .\n" + "}";
-  }
-
-  @Override
-  public GlyConvert getGlyConvert() {
-    return glyConvert;
+    return "FILTER NOT EXISTS {\n?" + Saccharide.URI + " rocs:has_composition ?existingseq .\n }\n"
+         + "FILTER NOT EXISTS {\n?" + Saccharide.URI + " glytoucan:has_primary_id \"G45005ZF\" .\n}"
+         + "FILTER NOT EXISTS {\n?" + Saccharide.URI + " glytoucan:has_primary_id \"G74606YC\" .\n}"
+         + "FILTER NOT EXISTS {\n?" + Saccharide.URI + " glytoucan:has_primary_id \"G62812GX\" .\n}"
+         ;
   }
 }
