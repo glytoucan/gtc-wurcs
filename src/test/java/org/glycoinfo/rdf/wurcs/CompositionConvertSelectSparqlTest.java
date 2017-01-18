@@ -6,7 +6,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.glycoinfo.rdf.SelectSparql;
 import org.glycoinfo.rdf.SelectSparqlBean;
-import org.glycoinfo.rdf.SelectSparqlBeanTestParent;
 import org.glycoinfo.rdf.SparqlException;
 import org.glycoinfo.rdf.dao.SparqlDAO;
 import org.glycoinfo.rdf.dao.SparqlEntity;
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringApplicationConfiguration(classes = {CompositionConvertSelectSparqlTest.class, VirtSesameTransactionConfig.class })
 @EnableAutoConfiguration
 public class CompositionConvertSelectSparqlTest  {
-  private static final Log logger = LogFactory.getLog(SelectSparqlBeanTestParent.class);
+  private static final Log logger = LogFactory.getLog(CompositionConvertSelectSparqlTest.class);
   
   @Bean
   public SelectSparql getSelectSparql() {
