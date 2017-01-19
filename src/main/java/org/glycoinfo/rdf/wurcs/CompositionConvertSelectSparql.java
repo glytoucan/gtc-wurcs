@@ -68,7 +68,6 @@ public class CompositionConvertSelectSparql extends SelectSparqlBean implements 
     return "FILTER NOT EXISTS {\n?" + Saccharide.URI + " rocs:has_composition ?existingseq .\n }\n"
          + "FILTER NOT EXISTS {\n?" + Saccharide.URI + " glytoucan:has_primary_id \"G45005ZF\" .\n}"
          + "FILTER NOT EXISTS {\n?" + Saccharide.URI + " glytoucan:has_primary_id \"G74606YC\" .\n}"
-         + "FILTER NOT EXISTS {\n?" + Saccharide.URI + " glytoucan:has_primary_id \"G62812GX\" .\n}"
          ;
   }
 }
