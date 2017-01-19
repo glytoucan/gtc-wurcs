@@ -30,7 +30,7 @@ public class GRABSequenceSelectSparqlSubsumes extends SelectSparqlBean {
 				+"PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>\n"
 				+"PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>\n";
 		this.select = "DISTINCT ?id ?subsumes_id\n";
-		this.from = "FROM <http://rdf.glytoucan.org/core>\nFROM <http://rdf.glytoucan.org/topology>\nFROM <http://rdf.glytoucan.org/composition>\nFROM <http://rdf.glytoucan.org/base_composition>\nFROM <http://rdf.glytoucan.org/sequence/iupac_extended>\n";
+		this.from = "FROM <http://rdf.glytoucan.org/core>\nFROM <http://rdf.glytoucan.org/topology>\nFROM <http://rdf.glytoucan.org/composition>\nFROM <http://rdf.glytoucan.org/basecomposition>\nFROM <http://rdf.glytoucan.org/sequence/iupac_extended>\n";
 		this.orderby = "ORDER BY ?iupac \n";
 	}
 
