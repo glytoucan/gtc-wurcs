@@ -1,0 +1,7 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ns1:	<http://rdf.glycoinfo.org/glycan/> .
+@prefix rocs:	<http://www.glycoinfo.org/glyco/owl/relation#> .
+
+ns1:G78676CI	rdf:type	rocs:Monosaccharide_composition .
+ns1:G00834JO	rocs:has_composition	ns1:G78676CI .
+ns1:G33543KS	rocs:has_composition	ns1:G78676CI .
