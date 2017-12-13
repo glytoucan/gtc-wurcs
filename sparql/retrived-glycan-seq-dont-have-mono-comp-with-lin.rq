@@ -1,0 +1,26 @@
+# Monosaccharide_composition_with_linkage を持っていないWURCS
+PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>
+PREFIX glytoucan:  <http://www.glytoucan.org/glyco/owl/glytoucan#>
+Prefix rocs: <http://www.glycoinfo.org/glyco/owl/relation#>
+
+SELECT DISTINCT ?PrimaryId
+#SELECT DISTINCT ?SaccharideURI ?PrimaryId ?Sequence
+FROM <http://rdf.glytoucan.org/core>
+FROM <http://rdf.glytoucan.org/sequence/wurcs>
+FROM <http://rdf.glytoucan.org/topology>
+FROM <http://rdf.glytoucan.org/compositionwithlinkage>
+WHERE {
+?SaccharideURI a rocs:Glycosidic_topology .
+?SaccharideURI glytoucan:has_primary_id ?PrimaryId .
+?SaccharideURI glycan:has_glycosequence ?GlycanSequenceURI .
+?GlycanSequenceURI glycan:has_sequence ?Sequence .
+?GlycanSequenceURI glycan:in_carbohydrate_format glycan:carbohydrate_format_wurcs .
+FILTER NOT EXISTS {
+?SaccharideURI rocs:has_composition_with_linkage ?existingseq .
+}
+# FILTER NOT EXISTS {
+# ?SaccharideURI glytoucan:has_primary_id "G45005ZF" .
+# }FILTER NOT EXISTS {
+# ?SaccharideURI glytoucan:has_primary_id "G74606YC" .
+# }
+} LIMIT 100
