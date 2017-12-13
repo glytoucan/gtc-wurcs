@@ -1,0 +1,43 @@
+PREFIX glytoucan: <http://www.glytoucan.org/glyco/owl/glytoucan#>
+PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>
+PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+  CONSTRUCT {
+    ?s0 ?p ?s.
+    ?s a rocs:Monosaccharide_composition
+  }
+# SELECT DISTINCT ?s0 ?p ?s
+# SELECT DISTINCT ?class
+# SELECT DISTINCT ?p
+# SELECT (COUNT(DISTINCT ?id) AS ?ids)
+# SELECT DISTINCT ?wurcs1
+# SELECT DISTINCT ?s ?id
+# DELETE {
+#   GRAPH </composition> {
+#     ?s0 ?p ?s.
+#     ?s a rocs:Monosaccharide_composition
+#   }
+# }
+FROM <http://rdf.glytoucan.org/core>
+FROM <http://rdf.glytoucan.org/composition>
+FROM <http://rdf.glytoucan.org/basecomposition>
+FROM <http://rdf.glytoucan.org/sequence/wurcs>
+WHERE {
+  ?s0 ?p ?s.
+  # ?s a ?class. # ?class = glycan:saccharide
+  # ?p = rocs:has_composition if ?s is rocs:Monosaccharide_composition
+  # ?p = rocs:has_base_composition if ?s is rocs:Base_composition
+
+  ?s a rocs:Monosaccharide_composition .
+  # ?s a rocs:Base_composition .
+  ?s glytoucan:has_primary_id ?id .
+  ?s glycan:has_glycosequence ?seq .
+  ?seq glycan:has_sequence ?wurcs1 .
+  ?seq glycan:in_carbohydrate_format glycan:carbohydrate_format_wurcs .
+  FILTER NOT EXISTS{
+    ?seq glycan:has_sequence ?wurcs .
+    FILTER regex(?wurcs, "0\\+")
+  }
+}
+limit 10

@@ -1,0 +1,15 @@
+PREFIX glytoucan: <http://www.glytoucan.org/glyco/owl/glytoucan#>
+PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>
+PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+# SELECT (COUNT (DISTINCT ?id) AS ?ids)
+SELECT DISTINCT ?wurcs
+WHERE {
+  ?s glytoucan:has_primary_id ?id .
+  ?s glycan:has_glycosequence ?seq .
+  ?seq glycan:has_sequence ?wurcs .
+  ?seq glycan:in_carbohydrate_format glycan:carbohydrate_format_wurcs .
+  filter regex(?wurcs, "0\\+")
+}
+limit 10

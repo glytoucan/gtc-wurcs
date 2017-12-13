@@ -1,0 +1,33 @@
+PREFIX glytoucan: <http://www.glytoucan.org/glyco/owl/glytoucan#>
+PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>
+PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?class1 ?id1 ?class2 ?id2
+#SELECT DISTINCT ?label_wurcs
+#SELECT (COUNT(DISTINCT ?id) AS ?ids)
+#SELECT DISTINCT ?id ?wurcs
+#FROM <http://rdf.glytoucan.org/core>
+#FROM <http://rdf.glytoucan.org/composition>
+#FROM <http://rdf.glytoucan.org/basecomposition>
+#FROM <http://rdf.glytoucan.org/sequence/wurcs>
+WHERE {
+  ?s a ?class1.
+  ?s glytoucan:has_primary_id ?id1 .
+  ?s rocs:has_composition ?o.
+  ?0 glytoucan:has_primary_id ?id2 .
+  ?o a ?class2.
+  #VALUES ?id {"G00657EQ"}
+  #?s a rocs:Monosaccharide_composition .
+  # ?s a ?class.
+  # ?s glytoucan:has_primary_id ?id .
+  # ?s glycan:has_glycosequence ?seq .
+  # ?seq rdfs:label ?label_wurcs.
+  # ?seq glycan:has_sequence ?wurcs .
+  # ?seq glycan:in_carbohydrate_format glycan:carbohydrate_format_wurcs .
+  #
+  # #filter regex(?wurcs, ",0")
+  # #filter regex(?wurcs, "\\+")
+  # filter regex(?wurcs, "0\\+")
+}
+limit 10
