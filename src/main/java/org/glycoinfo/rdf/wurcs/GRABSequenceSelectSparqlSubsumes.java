@@ -34,7 +34,6 @@ public class GRABSequenceSelectSparqlSubsumes extends SelectSparqlBean {
 				+ "FROM <http://rdf.glytoucan.org/topology>\n"
 				+ "FROM <http://rdf.glytoucan.org/composition>\n"
 				+ "FROM <http://rdf.glytoucan.org/compositionwithlinkage>\n"
-				+ "FROM <http://rdf.glytoucan.org/basecompositionwithlinkage>\n"
 				+ "FROM <http://rdf.glytoucan.org/basecomposition>\n"
 				+ "FROM <http://rdf.glytoucan.org/sequence/iupac_extended>\n";
 		this.orderby = "ORDER BY ?iupac \n";
@@ -74,13 +73,6 @@ public class GRABSequenceSelectSparqlSubsumes extends SelectSparqlBean {
 				+ "?hc a rocs:Monosaccharide_composition .\n"
 //				+ "?hc glycan:has_glycosequence ?seq .\n"
 //				+ "?seq glycan:has_sequence ?iupac .\n" 
-				+ "}\n"
-				+ "# Base_composition_with_linkage \n"
-				+ "OPTIONAL {\n" 
-				+ "?s glytoucan:has_primary_id ?id .\n"
-				+ "?s ?has_base_composition ?hbcwl .\n"
-				+ "?hbcwl glytoucan:has_primary_id ?subsumes_id .\n" 
-				+ "?hbcwl a rocs:Base_composition_with_linkage .\n"
 				+ "}\n"
 				+ "# Base_composition \n"
 				+ "OPTIONAL {\n" 
