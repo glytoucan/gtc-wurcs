@@ -19,6 +19,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+//
+/**
+ *  @author shinmachi
+ */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = {CompositionWithLinkageConvertSelectSparqlTest.class, VirtSesameTransactionConfig.class })
