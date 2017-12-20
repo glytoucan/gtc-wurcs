@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  *  GRAB graph selectSparql for subsumed by
  *  order by iupac literal
  * 
- * @author tokunaga
+ * @author tokunaga, shinmachi
  *
  */
 
@@ -35,6 +35,7 @@ public class GRABSequenceSelectSparqlSubsumedBy extends SelectSparqlBean {
 				+ "FROM <http://rdf.glytoucan.org/topology>\n"
 				+ "FROM <http://rdf.glytoucan.org/composition>\n"
 				+ "FROM <http://rdf.glytoucan.org/compositionwithlinkage>\n"
+				+ "FROM <http://rdf.glytoucan.org/basecompositionwithlinkage>\n"
 				+ "FROM <http://rdf.glytoucan.org/basecomposition>\n"
 				+ "FROM <http://rdf.glytoucan.org/sequence/iupac_extended>\n";
 		this.orderby = "ORDER BY ?iupac \n";
@@ -74,6 +75,13 @@ public class GRABSequenceSelectSparqlSubsumedBy extends SelectSparqlBean {
 				+ "?hc a rocs:Monosaccharide_composition .\n"
 //				+ "?s glycan:has_glycosequence ?seq .\n"
 //				+ "?seq glycan:has_sequence ?iupac .\n" 
+				+ "}\n"
+				+ "# Base_composition_with_linkage \n"
+				+ "OPTIONAL {\n" 
+				+ "?s glytoucan:has_primary_id ?id .\n"
+				+ "?s ?has_base_composition ?hbcwl .\n"
+				+ "?hbcwl glytoucan:has_primary_id ?subsumedby_id .\n" 
+				+ "?hbcwl a rocs:Base_composition_with_linkage .\n"
 				+ "}\n"
 				+ "# Base_composition \n"
 				+ "OPTIONAL {\n" 
