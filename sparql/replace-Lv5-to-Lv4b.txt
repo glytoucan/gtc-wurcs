@@ -1,0 +1,19 @@
+log_enable(2,1);
+sparql
+PREFIX glytoucan: <http://www.glytoucan.org/glyco/owl/glytoucan#>
+PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>
+PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>
+
+DELETE {
+  GRAPH <http://rdf.glytoucan.org/basecomposition> {
+    ?s a rocs:Base_composition.
+  }
+}
+INSERT {
+  GRAPH <http://rdf.glytoucan.org/basecomposition> {
+    ?s a rocs:Base_composition_with_linkage.
+  }
+}
+WHERE {
+  ?s a rocs:Base_composition.
+};

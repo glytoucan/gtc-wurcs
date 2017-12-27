@@ -13,33 +13,32 @@ import scala.annotation.meta.setter;
 
 /**
  * 
- * Insert Subsumption data of a glycosidic composition.  
+ * Insert Subsumption data of a Base Composition.  
  * 
  * @prefix rocs: <http://www.glycoinfo.org/glyco/owl/relation#> .
  * 
- * <http://rdf.glycoinfo.org/glycan/{Accession number 1}>
- *	rocs:has_composition_with_linkage <http://rdf.glycoinfo.org/glycan/{Accession number 2}> .
- *
+ * <http://rdf.glycoinfo.org/glycan/{Accession number 1}> # Monosaccharide composition with linkage
+ *	rocs:has_base_composition <http://rdf.glycoinfo.org/glycan/{Accession number 2}> .
  * <http://rdf.glycoinfo.org/glycan/{Accession number 2}>
- *	a rocs:Monosaccharide_composition_with_linkage ;
+ *	a rocs:Base_composition_with_linkage ;
  *
- * @author tokunaga, shinmalchi
+ * @author shinmachi
  *
  */
-public class MonosaccharideCompositionInsertSparql extends InsertSparqlBean implements GlycosidicTopology, UriProvider {
+public class BaseCompositionWithLinkageInsertSparql extends InsertSparqlBean implements GlycosidicTopology, UriProvider {
 
-	String level_type = "a Monosaccharide_composition_with_linkage";
-	String has_composition = "rocs:has_composition_with_linkage";
+//	String level_type = "a rocs:Base_composition_with_linkage";
+//	String has_toplogy = "rocs:has_base_composition";
 	private String m_PrimaryId = null;
 
 	void init() {
 		this.prefix="PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>\n";
 	}
-	public MonosaccharideCompositionInsertSparql() {
+	public BaseCompositionWithLinkageInsertSparql() {
 		init();
 	}
 	
-	public MonosaccharideCompositionInsertSparql(GlycoSequenceInsertSparql sequence ) {
+	public BaseCompositionWithLinkageInsertSparql(GlycoSequenceInsertSparql sequence ) {
 		init();
 		ArrayList<InsertSparql> list = new ArrayList<InsertSparql>();
 		list.add(sequence);
@@ -49,9 +48,9 @@ public class MonosaccharideCompositionInsertSparql extends InsertSparqlBean impl
 	public String getInsert() {
 		if (StringUtils.isNotBlank(getSparqlEntity().getValue(PrimaryId_1)) && StringUtils.isNotBlank(getSparqlEntity().getValue(PrimaryId_2))) {
 			this.insert = "<http://rdf.glycoinfo.org/glycan/" + getSparqlEntity().getValue(PrimaryId_1) +">"
-					+ " rocs:has_composition_with_linkage <http://rdf.glycoinfo.org/glycan/"+ getSparqlEntity().getValue(PrimaryId_2) +"> .\n"
+					+ " rocs:has_base_composition <http://rdf.glycoinfo.org/glycan/"+ getSparqlEntity().getValue(PrimaryId_2) +"> .\n"
 					+ "<http://rdf.glycoinfo.org/glycan/" + getSparqlEntity().getValue(PrimaryId_2) +">"
-					+ " a rocs:Monosaccharide_composition_with_linkage .\n";
+					+ " a rocs:Base_composition_with_linkage .\n";
 		}
 		return this.insert;
 	}

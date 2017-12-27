@@ -17,41 +17,46 @@ import org.springframework.util.Assert;
 
 /**
  * 
- * A class used to retrieve the glycan sequences that do not have a Monosaccharide composition with linkage.
+ * A class used to retrieve the glycan sequences that do not have a Base composition.
  * 
- * @author tokunaga, shinmachi
+ * @author shinmachi
  *
  */
-public class CompositionConvertSelectSparql extends SelectSparqlBean implements InitializingBean {
+public class BaseCompositionWithLinkageConvertSelectSparql extends SelectSparqlBean implements GlyConvertSparql, InitializingBean {
   public static final String SaccharideURI = Saccharide.URI;
   public static final String Sequence = "Sequence";
   public static final String GlycanSequenceURI = "GlycanSequenceURI";
   public static final String AccessionNumber = Saccharide.PrimaryId;
   protected Log logger = LogFactory.getLog(getClass());
 
+  @Autowired(required = true)
+  @Qualifier("org.glycoinfo.batch.glyconvert")
+  GlyConvert glyConvert;
+
   String glycanUri;
 
-  public CompositionConvertSelectSparql() {
+  public BaseCompositionWithLinkageConvertSelectSparql() {
     super();
-    this.prefix = "\nPREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>\n"
+    this.prefix = "PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>\n"
         + "PREFIX glytoucan:  <http://www.glytoucan.org/glyco/owl/glytoucan#>\n"
-        + "PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>\n";
-    this.select = "DISTINCT ?" + SaccharideURI + " ?" + AccessionNumber + " ?" + Sequence + "\n";
+        + "Prefix rocs: <http://www.glycoinfo.org/glyco/owl/relation#>\n";
+    this.select = "DISTINCT ?" + SaccharideURI + " ?" + AccessionNumber + " ?" + Sequence;
     this.from = "FROM <http://rdf.glytoucan.org/core>\n" 
     		+ "FROM <http://rdf.glytoucan.org/sequence/wurcs>\n"
-    		+ "FROM <http://rdf.glytoucan.org/topology> \n" 
-    		+ "FROM <http://rdf.glytoucan.org/composition> \n";
+    		+ "FROM <http://rdf.glytoucan.org/compositionwithlinkage>" 
+    		+ "FROM <http://rdf.glytoucan.org/basecomposition>";
   }
 
   /*
    * (non-Javadoc)
+   * 
    * @see org.glycoinfo.rdf.SelectSparqlBean#getWhere()
    */
   public String getWhere() {
-    String where = "?" + SaccharideURI + " a glycan:saccharide .\n"
-        + "?" + SaccharideURI + " glytoucan:has_primary_id ?" + AccessionNumber + " .\n"
-        + "?" + SaccharideURI + " a rocs:Glycosidic_topology .\n"
-    	+ "?" + SaccharideURI + " glycan:has_glycosequence ?" + GlycanSequenceURI + " .\n"
+    String where = "?" + SaccharideURI + " a glycan:saccharide .\n" 
+        + "?" + SaccharideURI + " glytoucan:has_primary_id ?" + AccessionNumber + " .\n" 
+        + "?" + SaccharideURI + " a rocs:Monosaccharide_composition_with_linkage.\n" 
+    	+ "?" + SaccharideURI + " glycan:has_glycosequence ?" + GlycanSequenceURI + " .\n" 
         + "?" + GlycanSequenceURI + " glycan:has_sequence ?Sequence .\n" 
     	+ "?" + GlycanSequenceURI + " glycan:in_carbohydrate_format glycan:carbohydrate_format_wurcs .\n";
     if (StringUtils.isNotBlank(getSparqlEntity().getValue(GlyConvertSparql.DoNotFilter)))
@@ -62,14 +67,16 @@ public class CompositionConvertSelectSparql extends SelectSparqlBean implements 
 
   /**
    * 
-   * The filter removes any non composition-related sequences.
+   * The filter removes any non base_composition-related sequences.
    * 
    * @return
    */
   public String getFilter() {
-    return "FILTER NOT EXISTS {\n?" + Saccharide.URI + " rocs:has_composition_with_linkage ?existingseq .\n }\n"
-         + "FILTER NOT EXISTS {\n?" + Saccharide.URI + " glytoucan:has_primary_id \"G45005ZF\" .\n}"
-         + "FILTER NOT EXISTS {\n?" + Saccharide.URI + " glytoucan:has_primary_id \"G74606YC\" .\n}"
-         ;
+    return "FILTER NOT EXISTS {\n" + "?" + Saccharide.URI + " rocs:has_base_composition ?existingseq .\n" + "}";
+  }
+
+  @Override
+  public GlyConvert getGlyConvert() {
+    return glyConvert;
   }
 }

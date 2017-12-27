@@ -1,0 +1,53 @@
+PREFIX glytoucan: <http://www.glytoucan.org/glyco/owl/glytoucan#>
+PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>
+PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>
+SELECT DISTINCT ?id ?subsumedby_id
+FROM <http://rdf.glytoucan.org/core>
+FROM <http://rdf.glytoucan.org/topology>
+FROM <http://rdf.glytoucan.org/composition>
+FROM <http://rdf.glytoucan.org/basecomposition>
+FROM <http://rdf.glytoucan.org/sequence/iupac_extended>
+ WHERE {
+VALUES ?subsumedby_id {"G15843XU"}
+VALUES ?has_topology { rocs:has_topology }
+VALUES ?has_composition { rocs:has_composition }
+VALUES ?has_composition_with_linkage { rocs:has_composition_with_linkage }
+VALUES ?has_base_composition { rocs:has_base_composition }
+# Glycosidic_topology
+OPTIONAL {
+?s glytoucan:has_primary_id ?id .
+?s ?has_topology ?ht .
+?ht glytoucan:has_primary_id ?subsumedby_id .
+?ht a rocs:Glycosidic_topology .
+?s glycan:has_glycosequence ?seq .
+?seq glycan:has_sequence ?iupac .
+}
+# Monosaccharide_composition_with_linkage
+OPTIONAL {
+?s glytoucan:has_primary_id ?id .
+?s ?has_composition_with_linkage ?hcwl .
+?hcwl glytoucan:has_primary_id ?subsumedby_id .
+?hcwl a rocs:Monosaccharide_composition_with_linkage .
+}
+# Monosaccharide_composition
+OPTIONAL {
+?s glytoucan:has_primary_id ?id .
+?s ?has_composition ?hc .
+?hc glytoucan:has_primary_id ?subsumedby_id .
+?hc a rocs:Monosaccharide_composition .
+}
+# Base_composition_with_linkage
+OPTIONAL {
+?s glytoucan:has_primary_id ?id .
+?s ?has_base_composition ?hbcwl .
+?hbcwl glytoucan:has_primary_id ?subsumedby_id .
+?hbcwl a rocs:Base_composition_with_linkage .
+}
+# Base_composition
+OPTIONAL {
+?s glytoucan:has_primary_id ?id .
+?s ?has_base_composition ?hbc .
+?hbc glytoucan:has_primary_id ?subsumedby_id .
+?hbc a rocs:Base_composition .
+}
+} ORDER BY ?iupac

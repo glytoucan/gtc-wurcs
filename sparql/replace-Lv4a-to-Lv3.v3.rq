@@ -1,0 +1,57 @@
+PREFIX glytoucan: <http://www.glytoucan.org/glyco/owl/glytoucan#>
+PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>
+PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>
+
+#SELECT DISTINCT ?ss ?s
+DELETE {
+  GRAPH <http://rdf.glytoucan.org/composition> {
+  ?ss rocs:has_composition ?s.
+  ?s a rocs:Monosaccharide_composition.
+  }
+}
+INSERT {
+  GRAPH <http://rdf.glytoucan.org/composition> {
+    ?ss rocs:has_composition_with_linkage ?s.
+    ?s a rocs:Monosaccharide_composition_with_linkage.
+  }
+}
+WHERE {
+  ?ss rocs:has_composition ?s.
+  ?s a rocs:Monosaccharide_composition.
+}
+
+PREFIX glytoucan: <http://www.glytoucan.org/glyco/owl/glytoucan#>
+PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>
+PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>
+
+#SELECT DISTINCT ?ss ?s
+CONSTRUCT{
+   ?ss rocs:has_composition_with_linkage ?s.
+   ?s a rocs:Monosaccharide_composition_with_linkage.
+
+}
+FROM <http://rdf.glytoucan.org/composition>
+WHERE {
+  ?ss rocs:has_composition ?s.
+  ?s a rocs:Monosaccharide_composition.
+
+}
+limit 10
+
+PREFIX glytoucan: <http://www.glytoucan.org/glyco/owl/glytoucan#>
+PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>
+PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>
+
+WITH <http://rdf.glytoucan.org/composition>
+DELETE {
+  ?s a rocs:Monosaccharide_composition.
+  ?ss rocs:has_composition ?s.
+}
+INSERT {
+  ?s a rocs:Monosaccharide_composition_with_linkage.
+  ?ss rocs:has_composition_with_linkage ?s.
+}
+WHERE {
+  ?s a rocs:Monosaccharide_composition.
+  ?ss rocs:has_composition ?s.
+}

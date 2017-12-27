@@ -13,20 +13,20 @@ import scala.annotation.meta.setter;
 
 /**
  * 
- * Insert Subsumption data of a glycosidic composition.  
+ * Insert Subsumption data of a glycosidic composition with linkage.  
  * 
  * @prefix rocs: <http://www.glycoinfo.org/glyco/owl/relation#> .
  * 
- * <http://rdf.glycoinfo.org/glycan/{Accession number 1}>
+ * <http://rdf.glycoinfo.org/glycan/{Accession number 1}> # Glycosidic Topology
  *	rocs:has_composition_with_linkage <http://rdf.glycoinfo.org/glycan/{Accession number 2}> .
  *
  * <http://rdf.glycoinfo.org/glycan/{Accession number 2}>
- *	a rocs:Monosaccharide_composition_with_linkage ;
+ *	a rocs:Monosaccharide_composition_with_linkage.
  *
- * @author tokunaga, shinmalchi
+ * @author shinmachi
  *
  */
-public class MonosaccharideCompositionInsertSparql extends InsertSparqlBean implements GlycosidicTopology, UriProvider {
+public class MonosaccharideCompositionWithLinkageInsertSparql extends InsertSparqlBean implements GlycosidicTopology, UriProvider {
 
 	String level_type = "a Monosaccharide_composition_with_linkage";
 	String has_composition = "rocs:has_composition_with_linkage";
@@ -35,11 +35,11 @@ public class MonosaccharideCompositionInsertSparql extends InsertSparqlBean impl
 	void init() {
 		this.prefix="PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>\n";
 	}
-	public MonosaccharideCompositionInsertSparql() {
+	public MonosaccharideCompositionWithLinkageInsertSparql() {
 		init();
 	}
 	
-	public MonosaccharideCompositionInsertSparql(GlycoSequenceInsertSparql sequence ) {
+	public MonosaccharideCompositionWithLinkageInsertSparql(GlycoSequenceInsertSparql sequence ) {
 		init();
 		ArrayList<InsertSparql> list = new ArrayList<InsertSparql>();
 		list.add(sequence);

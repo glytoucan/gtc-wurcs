@@ -1,0 +1,10 @@
+PREFIX glytoucan: <http://www.glytoucan.org/glyco/owl/glytoucan#>
+PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>
+PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>
+
+SELECT DISTINCT ?class
+FROM <http://rdf.glytoucan.org/composition>
+# FROM <http://rdf.glytoucan.org/basecomposition>
+WHERE{
+ ?s a ?class.
+}

@@ -19,10 +19,10 @@ import org.springframework.util.Assert;
  * 
  * A class used to retrieve the glycan sequences that do not have a Monosaccharide composition with linkage.
  * 
- * @author tokunaga, shinmachi
- *
+ * @author shinmachi
+ *  
  */
-public class CompositionConvertSelectSparql extends SelectSparqlBean implements InitializingBean {
+public class CompositionWithLinkageConvertSelectSparql extends SelectSparqlBean implements InitializingBean {
   public static final String SaccharideURI = Saccharide.URI;
   public static final String Sequence = "Sequence";
   public static final String GlycanSequenceURI = "GlycanSequenceURI";
@@ -31,16 +31,16 @@ public class CompositionConvertSelectSparql extends SelectSparqlBean implements 
 
   String glycanUri;
 
-  public CompositionConvertSelectSparql() {
+  public CompositionWithLinkageConvertSelectSparql() {
     super();
-    this.prefix = "\nPREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>\n"
+    this.prefix = "PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>\n"
         + "PREFIX glytoucan:  <http://www.glytoucan.org/glyco/owl/glytoucan#>\n"
         + "PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>\n";
     this.select = "DISTINCT ?" + SaccharideURI + " ?" + AccessionNumber + " ?" + Sequence + "\n";
     this.from = "FROM <http://rdf.glytoucan.org/core>\n" 
     		+ "FROM <http://rdf.glytoucan.org/sequence/wurcs>\n"
     		+ "FROM <http://rdf.glytoucan.org/topology> \n" 
-    		+ "FROM <http://rdf.glytoucan.org/composition> \n";
+    		+ "FROM <http://rdf.glytoucan.org/compositionwithlinkage> \n";
   }
 
   /*
@@ -48,9 +48,8 @@ public class CompositionConvertSelectSparql extends SelectSparqlBean implements 
    * @see org.glycoinfo.rdf.SelectSparqlBean#getWhere()
    */
   public String getWhere() {
-    String where = "?" + SaccharideURI + " a glycan:saccharide .\n"
+    String where = "?" + SaccharideURI + " a rocs:Glycosidic_topology .\n"
         + "?" + SaccharideURI + " glytoucan:has_primary_id ?" + AccessionNumber + " .\n"
-        + "?" + SaccharideURI + " a rocs:Glycosidic_topology .\n"
     	+ "?" + SaccharideURI + " glycan:has_glycosequence ?" + GlycanSequenceURI + " .\n"
         + "?" + GlycanSequenceURI + " glycan:has_sequence ?Sequence .\n" 
     	+ "?" + GlycanSequenceURI + " glycan:in_carbohydrate_format glycan:carbohydrate_format_wurcs .\n";

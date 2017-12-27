@@ -1,0 +1,16 @@
+PREFIX glytoucan: <http://www.glytoucan.org/glyco/owl/glytoucan#>
+PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>
+PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>
+
+CONSTRUCT{
+  ?ss rocs:has_composition_with_linkage ?s.
+  ?s a rocs:Monosaccharide_composition_with_linkage.
+}
+FROM <http://rdf.glytoucan.org/composition>
+# FROM <http://rdf.glytoucan.org/basecomposition>
+WHERE {
+  ?ss rocs:has_composition ?s.
+  ?s a rocs:Monosaccharide_composition.
+
+}
+limit 10
