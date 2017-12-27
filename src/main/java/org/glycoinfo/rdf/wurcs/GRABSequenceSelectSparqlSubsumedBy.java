@@ -45,7 +45,7 @@ public class GRABSequenceSelectSparqlSubsumedBy extends SelectSparqlBean {
 
 	@Override
 	public String getWhere() throws SparqlException {
-		this.where = "VALUES ?subsumedby_id {" + getPrimaryId() + "}\n"
+		this.where = "VALUES ?id {" + getPrimaryId() + "}\n"
 				+ "VALUES ?has_topology { rocs:has_topology }\n"
 				+ "VALUES ?has_composition { rocs:has_composition }\n"
 				+ "VALUES ?has_composition_with_linkage { rocs:has_composition_with_linkage }\n"
