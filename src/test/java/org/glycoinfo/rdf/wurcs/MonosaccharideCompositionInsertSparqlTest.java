@@ -50,8 +50,8 @@ public class MonosaccharideCompositionInsertSparqlTest {
 		SparqlEntity sparqlentity = new SparqlEntity();
 		sparqlentity.setValue(GlycosidicTopology.URI, "insertsacharideuri");
 		sparqlentity.setValue(GlycoSequence.URI, "glycosequenceuri");
-		sparqlentity.setValue(GlycosidicTopology.PrimaryId_1, "G14728XI");
-		sparqlentity.setValue(GlycosidicTopology.PrimaryId_2, "G24678II");
+		sparqlentity.setValue(GlycosidicTopology.PrimaryId_1, "G13375XC");
+		sparqlentity.setValue(GlycosidicTopology.PrimaryId_2, "G15843XU");
 		ins.setSparqlEntity(sparqlentity);
 		ins.setGraph("http://rdf.glytoucan.org/composition"); 
 		return ins;
@@ -63,7 +63,7 @@ public class MonosaccharideCompositionInsertSparqlTest {
 	GRABSequenceSelectSparqlSubsumes getMonosaccharideCompositionSelectSparqlSubsumes() {
 		GRABSequenceSelectSparqlSubsumes sis = new GRABSequenceSelectSparqlSubsumes();
 		SparqlEntity sparqlentity = new SparqlEntity();
-		sparqlentity.setValue(GlycosidicTopology.PrimaryId_1, "G14728XI");
+		sparqlentity.setValue(GlycosidicTopology.PrimaryId_1, "G15843XU");
 		sis.setSparqlEntity(sparqlentity);
 		return sis;
 	}
@@ -73,7 +73,7 @@ public class MonosaccharideCompositionInsertSparqlTest {
 	GRABSequenceSelectSparqlSubsumedBy getMonosaccharideCompositionSelectSparqlSubsumedBy() {
 		GRABSequenceSelectSparqlSubsumedBy sis = new GRABSequenceSelectSparqlSubsumedBy();
 		SparqlEntity sparqlentity = new SparqlEntity();
-		sparqlentity.setValue(GlycosidicTopology.PrimaryId_2, "G24678II");
+		sparqlentity.setValue(GlycosidicTopology.PrimaryId_2, "G13375XC");
 		sis.setSparqlEntity(sparqlentity);
 		return sis;
 	}
