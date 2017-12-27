@@ -19,20 +19,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * 
- * @author shinmachi 
- *
- */
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = {CompositionWithLinkageConvertSelectSparqlTest.class, VirtSesameTransactionConfig.class })
+@SpringApplicationConfiguration(classes = {BaseCompositionConvertSelectSparqlTest.class, VirtSesameTransactionConfig.class })
 @EnableAutoConfiguration
-public class CompositionWithLinkageConvertSelectSparqlTest  {
-  private static final Log logger = LogFactory.getLog(CompositionWithLinkageConvertSelectSparqlTest.class);
+public class BaseCompositionConvertSelectSparqlTest  {
+  private static final Log logger = LogFactory.getLog(BaseCompositionConvertSelectSparqlTest.class);
   
   @Bean
   public SelectSparql getSelectSparql() {
-    return new CompositionWithLinkageConvertSelectSparql();
+    return new CompositionConvertSelectSparql();
   }
   
   @Autowired
@@ -44,7 +40,7 @@ public class CompositionWithLinkageConvertSelectSparqlTest  {
   @Test
   @Transactional
   public void testSelectOutput() throws SparqlException {
-    List<SparqlEntity> results = sparqlDAO.query(new SelectSparqlBean(selectBean.getSparql() + " LIMIT 10"));
+    List<SparqlEntity> results = sparqlDAO.query(new SelectSparqlBean(selectBean.getSparql() + " LIMIT 100"));
     for (SparqlEntity sparqlEntity : results) {
       logger.debug(sparqlEntity.getData());
     }

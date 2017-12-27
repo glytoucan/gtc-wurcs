@@ -21,14 +21,14 @@ import scala.annotation.meta.setter;
  *	rocs:has_base_composition <http://rdf.glycoinfo.org/glycan/{Accession number 2}> .
  *
  * <http://rdf.glycoinfo.org/glycan/{Accession number 2}>
- *	a rocs:Base_composition ;
+ *	a rocs:Base_composition_with_linkage ;
  *
- * @author tokunaga
+ * @author tokunaga, shinmachi
  *
  */
 public class BaseCompositionInsertSparql extends InsertSparqlBean implements GlycosidicTopology, UriProvider {
 
-	String level_type = "a rocs:Base_composition";
+	String level_type = "a rocs:Base_composition_with_linkage";
 	String has_toplogy = "rocs:has_base_composition";
 	private String m_PrimaryId = null;
 
@@ -51,7 +51,7 @@ public class BaseCompositionInsertSparql extends InsertSparqlBean implements Gly
 			this.insert = "<http://rdf.glycoinfo.org/glycan/" + getSparqlEntity().getValue(PrimaryId_1) +">"
 					+ " rocs:has_base_composition <http://rdf.glycoinfo.org/glycan/"+ getSparqlEntity().getValue(PrimaryId_2) +"> .\n"
 					+ "<http://rdf.glycoinfo.org/glycan/" + getSparqlEntity().getValue(PrimaryId_2) +">"
-					+ " a rocs:Base_composition .\n";
+					+ " a rocs:Base_composition_with_linkage .\n";
 		}
 		return this.insert;
 	}
