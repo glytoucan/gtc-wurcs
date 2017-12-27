@@ -56,13 +56,13 @@ public class BaseCompositionInsertSparqlTest {
 		sparqlentity.setValue(GlycosidicTopology.PrimaryId_1, "G14728XI");
 		sparqlentity.setValue(GlycosidicTopology.PrimaryId_2, "G24678II");
 		ins.setSparqlEntity(sparqlentity);
-		ins.setGraph("http://rdf.glytoucan.org/base_composition"); //ここは？
+		ins.setGraph("http://rdf.glytoucan.org/basecomposition"); 
 		return ins;
 	}
 
 	//先に空を出させて、インサートして、セレクトもう一回する	
 	@Bean
-	GRABSequenceSelectSparqlSubsumes getBaseCompositionSelectSparql() {
+	GRABSequenceSelectSparqlSubsumes getBaseCompositionSelectSparqlSubsumes() {
 		GRABSequenceSelectSparqlSubsumes sis = new GRABSequenceSelectSparqlSubsumes();
 		SparqlEntity sparqlentity = new SparqlEntity();
 		sparqlentity.setValue(GlycosidicTopology.PrimaryId_1, "G14728XI");
@@ -78,7 +78,25 @@ public class BaseCompositionInsertSparqlTest {
 		sis.setSparqlEntity(sparqlentity);
 		return sis;
 	}
-	
+
+	@Test
+	@Transactional
+	public void insertSparql() throws SparqlException {
+		sparqlDAO.insert(getBaseCompositionInsertSparql());
+		
+		List<SparqlEntity> list = sparqlDAO.query(getBaseCompositionSelectSparqlSubsumes());
+		for (SparqlEntity sparqlEntity : list) {
+			String output = sparqlEntity.getValue("s");
+			//Assert.assertEquals("http://purl.jp/bio/12/glyco/glycan#saccharide", output);
+		}
+
+		List<SparqlEntity> list2 = sparqlDAO.query(getBaseCompositionSelectSparqlSubsumedBy());
+		for (SparqlEntity sparqlEntity : list2) {
+			String output2 = sparqlEntity.getValue("s");
+			//Assert.assertEquals("http://purl.jp/bio/12/glyco/glycan#saccharide", output);
+		}
+	}
+/**	
 	@Test
 	public void testInsertSparql() throws SparqlException {
 		logger.debug(getBaseCompositionInsertSparql().getSparql());
@@ -150,4 +168,6 @@ public class BaseCompositionInsertSparqlTest {
 			logger.debug(se.getValue(GRABSequenceSelectSparqlHasTopology.SaccharideURI));
 		}
 	}
+**/
+	
 }
