@@ -26,9 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
- * Test the insert sparql Monosaccharide Composition.
+ * Test the insert sparql Monosaccharide Composition With Linkage.
  * 
- * @author tokunaga
+ * @author tokunaga, shinmachi
  *
  *
  */
@@ -58,8 +58,9 @@ public class MonosaccharideCompositionInsertSparqlTest {
 	}
 
 	//先に空を出させて、インサートして、セレクトもう一回する	
+	// Subsumes
 	@Bean
-	GRABSequenceSelectSparqlSubsumes getMonosaccharideCompositionSelectSparql() {
+	GRABSequenceSelectSparqlSubsumes getMonosaccharideCompositionSelectSparqlSubsumes() {
 		GRABSequenceSelectSparqlSubsumes sis = new GRABSequenceSelectSparqlSubsumes();
 		SparqlEntity sparqlentity = new SparqlEntity();
 		sparqlentity.setValue(GlycosidicTopology.PrimaryId_1, "G14728XI");
@@ -67,6 +68,7 @@ public class MonosaccharideCompositionInsertSparqlTest {
 		return sis;
 	}
 	
+	// Subsumed by
 	@Bean
 	GRABSequenceSelectSparqlSubsumedBy getMonosaccharideCompositionSelectSparqlSubsumedBy() {
 		GRABSequenceSelectSparqlSubsumedBy sis = new GRABSequenceSelectSparqlSubsumedBy();
@@ -75,7 +77,31 @@ public class MonosaccharideCompositionInsertSparqlTest {
 		sis.setSparqlEntity(sparqlentity);
 		return sis;
 	}
+
 	
+	@Test
+	@Transactional
+	public void insertSparql() throws SparqlException {
+		// executive "monosaccharide composition with linkage insert" query
+		sparqlDAO.insert(getMonosaccharideCompositionInsertSparql());
+
+		// executive "subsumes" query
+		List<SparqlEntity> list2 = sparqlDAO.query(getMonosaccharideCompositionSelectSparqlSubsumes());
+		for (SparqlEntity sparqlEntity : list2) {
+			String output2 = sparqlEntity.getValue("s");
+		}
+
+		// executive "subsumed by" query
+		List<SparqlEntity> list = sparqlDAO.query(getMonosaccharideCompositionSelectSparqlSubsumedBy());
+		for (SparqlEntity sparqlEntity : list) {
+			String output = sparqlEntity.getValue("s");
+		}
+
+		
+	}
+	
+	
+/**	
 	@Test
 	public void testInsertSparql() throws SparqlException {
 		logger.debug(getMonosaccharideCompositionInsertSparql().getSparql());
@@ -147,4 +173,6 @@ public class MonosaccharideCompositionInsertSparqlTest {
 			logger.debug(se.getValue(GRABSequenceSelectSparqlHasTopology.SaccharideURI));
 		}
 	}
+**/
+	
 }

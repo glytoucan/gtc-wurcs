@@ -33,8 +33,6 @@ public class GRABSequenceSelectSparqlSubsumes extends SelectSparqlBean {
 		this.from = "FROM <http://rdf.glytoucan.org/core>\n"
 				+ "FROM <http://rdf.glytoucan.org/topology>\n"
 				+ "FROM <http://rdf.glytoucan.org/composition>\n"
-				+ "FROM <http://rdf.glytoucan.org/compositionwithlinkage>\n"
-				+ "FROM <http://rdf.glytoucan.org/basecompositionwithlinkage>\n"
 				+ "FROM <http://rdf.glytoucan.org/basecomposition>\n"
 				+ "FROM <http://rdf.glytoucan.org/sequence/iupac_extended>\n";
 		this.orderby = "ORDER BY ?iupac \n";

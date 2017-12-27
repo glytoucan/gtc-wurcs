@@ -18,18 +18,18 @@ import scala.annotation.meta.setter;
  * @prefix rocs: <http://www.glycoinfo.org/glyco/owl/relation#> .
  * 
  * <http://rdf.glycoinfo.org/glycan/{Accession number 1}>
- *	rocs:has_composition <http://rdf.glycoinfo.org/glycan/{Accession number 2}> .
+ *	rocs:has_composition_with_linkage <http://rdf.glycoinfo.org/glycan/{Accession number 2}> .
  *
  * <http://rdf.glycoinfo.org/glycan/{Accession number 2}>
- *	a rocs:Monosaccharide_composition ;
+ *	a rocs:Monosaccharide_composition_with_linkage ;
  *
- * @author tokunaga
+ * @author tokunaga, shinmalchi
  *
  */
 public class MonosaccharideCompositionInsertSparql extends InsertSparqlBean implements GlycosidicTopology, UriProvider {
 
-	String level_type = "a Monosaccharide_composition";
-	String has_composition = "rocs:has_composition";
+	String level_type = "a Monosaccharide_composition_with_linkage";
+	String has_composition = "rocs:has_composition_with_linkage";
 	private String m_PrimaryId = null;
 
 	void init() {
@@ -49,9 +49,9 @@ public class MonosaccharideCompositionInsertSparql extends InsertSparqlBean impl
 	public String getInsert() {
 		if (StringUtils.isNotBlank(getSparqlEntity().getValue(PrimaryId_1)) && StringUtils.isNotBlank(getSparqlEntity().getValue(PrimaryId_2))) {
 			this.insert = "<http://rdf.glycoinfo.org/glycan/" + getSparqlEntity().getValue(PrimaryId_1) +">"
-					+ " rocs:has_composition <http://rdf.glycoinfo.org/glycan/"+ getSparqlEntity().getValue(PrimaryId_2) +"> .\n"
+					+ " rocs:has_composition_with_linkage <http://rdf.glycoinfo.org/glycan/"+ getSparqlEntity().getValue(PrimaryId_2) +"> .\n"
 					+ "<http://rdf.glycoinfo.org/glycan/" + getSparqlEntity().getValue(PrimaryId_2) +">"
-					+ " a rocs:Monosaccharide_composition .\n";
+					+ " a rocs:Monosaccharide_composition_with_linkage .\n";
 		}
 		return this.insert;
 	}

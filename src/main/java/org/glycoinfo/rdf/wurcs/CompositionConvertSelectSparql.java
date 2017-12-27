@@ -17,9 +17,9 @@ import org.springframework.util.Assert;
 
 /**
  * 
- * A class used to retrieve the glycan sequences that do not have a Monosaccharide composition.
+ * A class used to retrieve the glycan sequences that do not have a Monosaccharide composition with linkage.
  * 
- * @author tokunaga
+ * @author tokunaga, shinmachi
  *
  */
 public class CompositionConvertSelectSparql extends SelectSparqlBean implements InitializingBean {
@@ -33,12 +33,14 @@ public class CompositionConvertSelectSparql extends SelectSparqlBean implements 
 
   public CompositionConvertSelectSparql() {
     super();
-    this.prefix = "PREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>\n"
+    this.prefix = "\nPREFIX glycan: <http://purl.jp/bio/12/glyco/glycan#>\n"
         + "PREFIX glytoucan:  <http://www.glytoucan.org/glyco/owl/glytoucan#>\n"
-        + "Prefix rocs: <http://www.glycoinfo.org/glyco/owl/relation#>\n";
-    this.select = "DISTINCT ?" + SaccharideURI + " ?" + AccessionNumber + " ?" + Sequence;
-    this.from = "FROM <http://rdf.glytoucan.org/core>\n" + "FROM <http://rdf.glytoucan.org/sequence/wurcs>\n"
-    		+ "FROM <http://rdf.glytoucan.org/topology> " + "FROM <http://rdf.glytoucan.org/composition>";
+        + "PREFIX rocs: <http://www.glycoinfo.org/glyco/owl/relation#>\n";
+    this.select = "DISTINCT ?" + SaccharideURI + " ?" + AccessionNumber + " ?" + Sequence + "\n";
+    this.from = "FROM <http://rdf.glytoucan.org/core>\n" 
+    		+ "FROM <http://rdf.glytoucan.org/sequence/wurcs>\n"
+    		+ "FROM <http://rdf.glytoucan.org/topology> \n" 
+    		+ "FROM <http://rdf.glytoucan.org/composition> \n";
   }
 
   /*
@@ -65,7 +67,7 @@ public class CompositionConvertSelectSparql extends SelectSparqlBean implements 
    * @return
    */
   public String getFilter() {
-    return "FILTER NOT EXISTS {\n?" + Saccharide.URI + " rocs:has_composition ?existingseq .\n }\n"
+    return "FILTER NOT EXISTS {\n?" + Saccharide.URI + " rocs:has_composition_with_linkage ?existingseq .\n }\n"
          + "FILTER NOT EXISTS {\n?" + Saccharide.URI + " glytoucan:has_primary_id \"G45005ZF\" .\n}"
          + "FILTER NOT EXISTS {\n?" + Saccharide.URI + " glytoucan:has_primary_id \"G74606YC\" .\n}"
          ;
