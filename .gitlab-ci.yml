@@ -1,5 +1,8 @@
 image: aokinobu/docker-compose:1.21.2
 
+services:
+  - docker:dind
+
 stages:
   - build
   - deploy
