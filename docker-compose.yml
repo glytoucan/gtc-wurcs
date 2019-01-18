@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  maven:
+    image: registry.gitlab.com/aokinobu/docker-maven:0.0.1-SNAPSHOT
+    volumes:
+      - .:/workspace
+      - ./.m2:/root/.m2
+      - /etc/localtime:/etc/localtime
+    working_dir: /workspace
+    command: mvn -U -DskipTests=true spring-boot:run
+    environment:
+     - PROJECT_VERSION
+     - ARTIFACT_ID
+     - MAVEN_REPO_USER
+     - MAVEN_REPO_PASS
