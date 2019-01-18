@@ -1,17 +1,12 @@
-image: aokinobu/docker-compose:1.21.2
-
-services:
-  - docker:dind
+image: maven:latest
 
 stages:
-  - build
+#  - test
+  - package
   - deploy
-  - release
-  - sitebuild
-  - sitedeploy
 
 variables:
-  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode -Denforcer.skip=true -DskipTests=true"
+  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
   MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository -da:org.openrdf..."
 
 cache:
@@ -19,54 +14,23 @@ cache:
     - .m2/repository/
     - target/
 
-build:
-  stage: build
+#test:
+#  stage: test
+#  only:
+#    - master
+#  script:
+#    - mvn $MAVEN_CLI_OPTS -Dtest=ClassToTest test
+
+package:
+  stage: package
   only:
     - master
-  variables:
-    PROJECT_VERSION: ${PROJECT_VERSION_TEST}
   script:
-    - echo ${PROJECT_VERSION}
-    - docker-compose run --rm maven mvn $MAVEN_CLI_OPTS -DskipTests=true package
+    - mvn $MAVEN_CLI_OPTS -DskipTests=true package
 
 deploy:
   stage: deploy
   only:
     - master
-  variables:
-    PROJECT_VERSION: ${PROJECT_VERSION_TEST}
   script:
-    - echo ${PROJECT_VERSION}
-    - docker-compose run --rm maven mvn $MAVEN_CLI_OPTS -DskipTests=true deploy
-
-release:
-  stage: release 
-  only:
-    - master
-  variables:
-    PROJECT_VERSION: ${PROJECT_VERSION_PROD}
-  script:
-    - echo ${PROJECT_VERSION}
-    - docker-compose run --rm maven mvn $MAVEN_CLI_OPTS -DskipTests=true deploy
-  when: manual
-
-sitebuild:
-  stage: sitebuild
-  only:
-    - master
-  variables:
-    PROJECT_VERSION: ${PROJECT_VERSION_PROD}
-  script:
-    - echo ${PROJECT_VERSION}
-    - docker-compose run --rm maven mvn $MAVEN_CLI_OPTS site
-
-sitedeploy:
-  stage: sitedeploy
-  only:
-    - master
-  variables:
-    PROJECT_VERSION: ${PROJECT_VERSION_PROD}
-  script:
-    - echo ${PROJECT_VERSION}
-    - docker-compose run --rm maven mvn $MAVEN_CLI_OPTS site-deploy
-  when: manual
+    - mvn $MAVEN_CLI_OPTS -DskipTests=true deploy
